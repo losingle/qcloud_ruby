@@ -24,12 +24,12 @@ gem install qcloud_ruby
 end
 
 resp = ::QcloudRuby.post(
-  service_type: ::QcloudRuby::ServiceType::CVM,
+  service_type: ::QcloudRuby::ServiceType::ACCOUNT,
   region: 'gz',
-  action: 'DescribeInstances'
+  action: 'DescribeProject'
 )
 
-resp = ::QcloudRuby.post(
+resp = ::QcloudRuby.get(
   service_type: ::QcloudRuby::ServiceType::CVM,
   region: 'gz',
   action: 'DescribeInstances'

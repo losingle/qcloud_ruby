@@ -28,7 +28,7 @@ class QcloudRubyTest < Minitest::Test
   end
 
   def test_get_should_be_work
-    resp = ::QcloudRuby.post(
+    resp = ::QcloudRuby.get(
       service_type: ::QcloudRuby::ServiceType::CVM,
       region: 'gz',
       action: 'DescribeInstances'
