@@ -21,6 +21,7 @@ module QcloudRuby
         SecretId: secret_id,
         Timestamp: timestamp,
         Nonce: nonce,
+        Version: version,
         RequestClient: identity
       }
     end
@@ -60,6 +61,10 @@ module QcloudRuby
 
     def identity
       "SDK_RUBY_#{::QcloudRuby::VERSION}"
+    end
+
+    def version
+      '2017-03-12'
     end
 
     def host

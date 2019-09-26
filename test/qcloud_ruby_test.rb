@@ -14,7 +14,7 @@ class QcloudRubyTest < Minitest::Test
       c.service_type = ::QcloudRuby::ServiceType::CVM
     end
 
-    assert_equal 'cvm.api.qcloud.com/v2/index.php', client.url
+    assert_equal 'cvm.tencentcloudapi.com/', client.url
   end
 
   def test_post_should_be_work
