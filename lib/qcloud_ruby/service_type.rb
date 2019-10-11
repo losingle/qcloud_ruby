@@ -4,6 +4,7 @@ module QcloudRuby
     VPC     = 'vpc'.freeze
     DFW     = 'dfw'.freeze
     LB      = 'lb'.freeze
+    CNS      = 'cns'.freeze
     ACCOUNT = 'account'.freeze
   end
 end

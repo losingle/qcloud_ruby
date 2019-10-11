@@ -29,12 +29,9 @@ module QcloudRuby
     def gen_data(method, region, action, other_params)
       params = default_params(region, action)
                 .merge!(other_params)
-                .sort
                 .to_h
 
-      query_str = URI.encode_www_form(params)
-
-      params.merge!(Signature: sign(method, query_str))
+      params.merge!(Signature: sign(method, params))
     end
 
     def request(method: 'POST', region: nil, action: nil, **other_params)
@@ -68,19 +65,29 @@ module QcloudRuby
     end
 
     def host
-      "#{service_type}.#{base_host}"
+      if ['cns'].include? service_type
+        "#{service_type}.#{base_host_v2}"
+      else
+        "#{service_type}.#{base_host}"
+      end
+      
     end
 
     def url
-      "#{host}#{path}"
+      if ['cns'].include? service_type
+        "#{host}#{path_v2}"
+      else
+        "#{host}#{path}"
+      end
     end
 
     def url_with_protocol
       "#{protocol}://#{url}"
     end
 
-    def sign(method, query)
-      source = method + url + '?' + query
+    def sign(method, data)
+      source = data.sort.to_h.map{|k,v| "#{k}=#{v}"}.join("&")
+      source = method + url + '?' + source
 
       Base64.encode64(OpenSSL::HMAC.digest(
         OpenSSL::Digest.new('sha1'),
@@ -89,6 +96,6 @@ module QcloudRuby
     end
 
     def_delegators :'QcloudRuby.configuration',
-      :protocol, :secret_id, :secret_key, :base_host, :path
+      :protocol, :secret_id, :secret_key, :base_host, :path, :base_host_v2, :path_v2
   end
 end
